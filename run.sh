@@ -14,15 +14,13 @@ if ! command -v streamlit &> /dev/null; then
     exit 1
 fi
 
-# Check if TAUC SDK is installed
+# Check if TAUC SDK is available (bundled with dashboard)
 python -c "import tauc_openapi" 2>/dev/null
 if [ $? -ne 0 ]; then
-    echo "Warning: TAUC SDK not found"
-    echo "Installing SDK from parent directory..."
-    pip install -e .. || {
-        echo "Error: Failed to install TAUC SDK"
-        exit 1
-    }
+    echo "Error: TAUC SDK not found"
+    echo "The SDK should be in the tauc_openapi/ directory"
+    echo "Please ensure you have the complete repository"
+    exit 1
 fi
 
 # Function to check if port is available

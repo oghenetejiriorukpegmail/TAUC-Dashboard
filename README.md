@@ -40,21 +40,21 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 
 ### Prerequisites
 - Python 3.7 or higher
-- TAUC OpenAPI Python SDK (installed from parent directory)
 - Valid TAUC API credentials (OAuth or AK/SK)
-- Client certificate and key files
+- Client certificate and key files (client.crt and client.key)
+
+**Note:** The TAUC SDK is included in this repository - no separate installation needed!
 
 ### Quick Start (Linux/Mac)
 
-1. **Install the TAUC SDK** (from parent directory):
+1. **Clone the repository**:
    ```bash
-   cd ..
-   pip install -e .
+   git clone https://github.com/oghenetejiriorukpegmail/TAUC-Dashboard.git
+   cd TAUC-Dashboard
    ```
 
-2. **Install UI dependencies**:
+2. **Install dependencies**:
    ```bash
-   cd streamlit_app
    pip install -r requirements.txt
    ```
 
@@ -63,7 +63,7 @@ A web-based user interface for managing TP-Link network devices through the TAUC
    ./run.sh          # Smart launcher with auto port detection
    ```
 
-   Or manually specify the command:
+   Or manually:
    ```bash
    streamlit run app.py
    ```
@@ -72,15 +72,14 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 
 ### Quick Start (Windows)
 
-1. **Install the TAUC SDK** (from parent directory):
+1. **Clone the repository**:
    ```cmd
-   cd ..
-   pip install -e .
+   git clone https://github.com/oghenetejiriorukpegmail/TAUC-Dashboard.git
+   cd TAUC-Dashboard
    ```
 
-2. **Install UI dependencies**:
+2. **Install dependencies**:
    ```cmd
-   cd streamlit_app
    pip install -r requirements.txt
    ```
 
@@ -89,7 +88,7 @@ A web-based user interface for managing TP-Link network devices through the TAUC
    run.bat           # Smart launcher with auto port detection
    ```
 
-   Or manually specify the command:
+   Or manually:
    ```cmd
    streamlit run app.py
    ```

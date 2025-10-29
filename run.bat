@@ -14,16 +14,13 @@ if errorlevel 1 (
     exit /b 1
 )
 
-REM Check if TAUC SDK is installed
+REM Check if TAUC SDK is available (bundled with dashboard)
 python -c "import tauc_openapi" >nul 2>&1
 if errorlevel 1 (
-    echo Warning: TAUC SDK not found
-    echo Installing SDK from parent directory...
-    pip install -e ..
-    if errorlevel 1 (
-        echo Error: Failed to install TAUC SDK
-        exit /b 1
-    )
+    echo Error: TAUC SDK not found
+    echo The SDK should be in the tauc_openapi/ directory
+    echo Please ensure you have the complete repository
+    exit /b 1
 )
 
 REM Find available port starting from 8765
