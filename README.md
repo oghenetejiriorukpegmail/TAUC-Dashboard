@@ -2,9 +2,12 @@
 
 A web-based user interface for managing TP-Link network devices through the TAUC OpenAPI. Built with Streamlit for easy deployment and use.
 
+**Cross-Platform:** Works on Windows, Linux, and macOS with dedicated launchers for each platform.
+
 ![Dashboard Preview](https://img.shields.io/badge/Status-Beta-yellow)
 ![Python](https://img.shields.io/badge/Python-3.7+-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
 
 ## Features
 
@@ -40,7 +43,7 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 - Valid TAUC API credentials (OAuth or AK/SK)
 - Client certificate and key files
 
-### Quick Start
+### Quick Start (Linux/Mac)
 
 1. **Install the TAUC SDK** (from parent directory):
    ```bash
@@ -56,13 +59,38 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 
 3. **Run the dashboard**:
    ```bash
+   ./run.sh          # Smart launcher with auto port detection
+   ```
+
+   Or manually specify the command:
+   ```bash
    streamlit run app.py
    ```
 
-   Or use the smart launcher (automatically finds available port):
-   ```bash
-   ./run.sh          # Linux/Mac
-   run.bat           # Windows
+4. **Open your browser**:
+
+### Quick Start (Windows)
+
+1. **Install the TAUC SDK** (from parent directory):
+   ```cmd
+   cd ..
+   pip install -e .
+   ```
+
+2. **Install UI dependencies**:
+   ```cmd
+   cd streamlit_app
+   pip install -r requirements.txt
+   ```
+
+3. **Run the dashboard**:
+   ```cmd
+   run.bat           # Smart launcher with auto port detection
+   ```
+
+   Or manually specify the command:
+   ```cmd
+   streamlit run app.py
    ```
 
 4. **Open your browser**:

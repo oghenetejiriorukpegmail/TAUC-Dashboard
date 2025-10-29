@@ -277,12 +277,203 @@ streamlit --version
 
 ---
 
+## Windows-Specific Issues
+
+### Issue: run.bat doesn't execute
+
+**Symptom:**
+```cmd
+'run.bat' is not recognized as an internal or external command
+```
+
+**Solutions:**
+1. **Make sure you're in the correct directory:**
+   ```cmd
+   cd streamlit_app
+   dir run.bat
+   ```
+
+2. **Run with explicit path:**
+   ```cmd
+   .\run.bat
+   ```
+   Or:
+   ```cmd
+   call run.bat
+   ```
+
+3. **Check file exists:**
+   ```cmd
+   dir *.bat
+   ```
+
+### Issue: Python not found on Windows
+
+**Symptom:**
+```cmd
+'python' is not recognized as an internal or external command
+```
+
+**Solutions:**
+1. **Use `py` launcher instead:**
+   ```cmd
+   py -m pip install -r requirements.txt
+   py -m streamlit run app.py
+   ```
+
+2. **Add Python to PATH:**
+   - Open "Environment Variables" in System Properties
+   - Add Python installation directory to PATH
+   - Restart Command Prompt
+
+3. **Use full path to Python:**
+   ```cmd
+   C:\Python310\python.exe -m pip install -r requirements.txt
+   ```
+
+### Issue: Permission denied on Windows
+
+**Symptom:**
+```cmd
+PermissionError: [WinError 5] Access is denied
+```
+
+**Solutions:**
+1. **Run Command Prompt as Administrator:**
+   - Right-click Command Prompt
+   - Select "Run as administrator"
+
+2. **Use --user flag for pip:**
+   ```cmd
+   pip install --user -r requirements.txt
+   ```
+
+3. **Close other programs:**
+   - Close any programs using the files
+   - Close other Python processes
+   - Try again
+
+### Issue: Port already in use on Windows
+
+**Symptom:**
+```cmd
+OSError: [WinError 10048] Only one usage of each socket address is normally permitted
+```
+
+**Solutions:**
+1. **Use run.bat (finds available port automatically):**
+   ```cmd
+   run.bat
+   ```
+
+2. **Find process using port:**
+   ```cmd
+   netstat -ano | findstr :8765
+   taskkill /PID <process_id> /F
+   ```
+
+3. **Use different port:**
+   ```cmd
+   streamlit run app.py --server.port=9000
+   ```
+
+### Issue: Certificate paths on Windows
+
+**Symptom:**
+```
+FileNotFoundError: [Errno 2] No such file or directory: '../certs/client.crt'
+```
+
+**Solutions:**
+1. **Use absolute Windows paths:**
+   ```
+   C:\Users\YourName\Documents\TAUC\certs\client.crt
+   C:\Users\YourName\Documents\TAUC\certs\client.key
+   ```
+
+2. **Use forward slashes (works on Windows):**
+   ```
+   C:/Users/YourName/Documents/TAUC/certs/client.crt
+   ```
+
+3. **Use raw strings in Python (avoid backslash issues):**
+   ```python
+   r"C:\Users\YourName\Documents\TAUC\certs\client.crt"
+   ```
+
+### Issue: Virtual environment on Windows
+
+**Creating venv:**
+```cmd
+python -m venv venv
+venv\Scripts\activate.bat
+pip install -r requirements.txt
+```
+
+**Activating venv:**
+```cmd
+# Command Prompt
+venv\Scripts\activate.bat
+
+# PowerShell
+venv\Scripts\Activate.ps1
+
+# If PowerShell execution policy error:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Issue: Line endings on Windows (Git)
+
+**Symptom:**
+Run scripts have wrong line endings after cloning on Windows.
+
+**Solution:**
+```cmd
+# Configure Git to handle line endings
+git config --global core.autocrlf true
+
+# Re-clone or reset files
+git rm --cached -r .
+git reset --hard
+```
+
+### Windows Quick Commands Reference
+
+```cmd
+# Check Python version
+python --version
+
+# Check pip version
+pip --version
+
+# List installed packages
+pip list
+
+# Check if Streamlit installed
+pip show streamlit
+
+# Check if TAUC SDK installed
+python -c "import tauc_openapi; print('SDK installed')"
+
+# Find Python executable
+where python
+
+# Check available ports
+netstat -ano | findstr LISTEN
+
+# Kill process by PID
+taskkill /PID <pid> /F
+```
+
+---
+
 ## Still Having Issues?
 
-1. Check `AUTHENTICATION_FIX.md` for detailed authentication info
-2. Check `PORT_MANAGEMENT.md` for port configuration
-3. Check `README.md` for full documentation
-4. File an issue with:
+1. Check `README.md` for platform-specific installation guides
+2. Check `ARCHITECTURE.md` for system design details
+3. File an issue with:
+   - Operating System and version (e.g., Windows 11, Linux Ubuntu 22.04)
+   - Python version (`python --version`)
    - Full error message
    - Steps to reproduce
    - Debug Info output
