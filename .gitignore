@@ -1,0 +1,98 @@
+# TP-Link TAUC Dashboard - Gitignore
+# Security: NEVER commit secrets or credentials
+
+# === CRITICAL SECRETS ===
+# Environment variables with API credentials
+.env
+.env.local
+.env.*.local
+*.env
+
+# Streamlit secrets (OAuth credentials)
+.streamlit/secrets.toml
+
+# === PYTHON ===
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# === STREAMLIT ===
+# Streamlit cache
+.streamlit/cache/
+
+# === IDEs AND EDITORS ===
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# === OPERATING SYSTEM ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Linux
+.directory
+
+# === LOGS AND TEMPORARY FILES ===
+*.log
+*.tmp
+*.temp
+*.bak
+
+# === LOCAL DEVELOPMENT ===
+# Local test scripts
+test_local.py
+scratch.py
+debug_*.py

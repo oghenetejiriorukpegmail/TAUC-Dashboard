@@ -1,0 +1,28 @@
+[theme]
+# Official TP-Link TAUC Theme - Dark Mode with Sky Blue accent
+primaryColor = "#38bdf8"          # Sky Blue - Bright and modern accent color
+backgroundColor = "#1a1a1a"        # Dark background matching official dark mode
+secondaryBackgroundColor = "#2d2d2d" # Slightly lighter for cards/panels
+textColor = "#FAFAFA"             # White text for dark mode
+font = "sans serif"
+
+[server]
+headless = true
+# port is set via command line argument in run.sh
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+serverAddress = "localhost"
+# serverPort is set via command line argument in run.sh
+
+[client]
+showSidebarNavigation = false
+toolbarMode = "minimal"
+
+[runner]
+fastReruns = true
+
+[ui]
+hideTopBar = true
