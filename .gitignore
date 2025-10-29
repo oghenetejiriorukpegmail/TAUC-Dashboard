@@ -92,6 +92,9 @@ Desktop.ini
 *.bak
 
 # === LOCAL DEVELOPMENT ===
+# AI assistant guidance (development only)
+CLAUDE.md
+
 # Local test scripts
 test_local.py
 scratch.py
