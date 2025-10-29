@@ -201,24 +201,6 @@ The launcher scripts (`run.sh` / `run.bat`) automatically:
 3. Display the selected port in the terminal
 4. Launch the dashboard on the first available port
 
-### Port Helper Utility
-
-Use the included `port_helper.py` for manual port management:
-
-```bash
-# Find an available port (default range: 8765-8800)
-python port_helper.py
-
-# Check if a specific port is available
-python port_helper.py check 8765
-
-# Find port in custom range
-python port_helper.py find 9000 9100
-
-# List all used ports in a range
-python port_helper.py list 8000 9000
-```
-
 ### Manual Port Selection
 
 To use a specific port:
