@@ -372,7 +372,6 @@ To see detailed error information, check the Streamlit terminal output or expand
 
 For issues and questions:
 - Check the [main SDK README](../README.md)
-- Review [CLAUDE.md](../CLAUDE.md) for architecture details
 - File issues on the project repository
 
 ## License
