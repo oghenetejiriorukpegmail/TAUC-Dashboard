@@ -439,7 +439,7 @@ def get_theme_css(theme: str = 'dark') -> str:
         text-decoration: none !important;
     }}
 
-    /* Force ALL button text content to use button text color */
+    /* Force ALL button text content to use black color */
     button:not([aria-hidden="true"]) *,
     button:not([tabindex="-1"]) *,
     .stButton button span,
@@ -460,7 +460,7 @@ def get_theme_css(theme: str = 'dark') -> str:
     [role="button"]:not([aria-hidden="true"]) div,
     [role="button"]:not([aria-hidden="true"]) p,
     [role="button"]:not([aria-hidden="true"]) * {{
-        color: inherit !important;
+        color: #0f172a !important;
     }}
 
     .stButton button svg,
@@ -470,7 +470,7 @@ def get_theme_css(theme: str = 'dark') -> str:
         color: inherit !important;
     }}
 
-    /* HOVER states - ALL buttons - ULTRA-SPECIFIC */
+    /* HOVER states - Simplified, no transform effects */
     button:hover:not(:disabled):not([aria-hidden="true"]),
     button[type]:hover:not(:disabled):not([aria-hidden="true"]),
     button:not([type]):hover:not(:disabled):not([aria-hidden="true"]),
@@ -491,10 +491,7 @@ def get_theme_css(theme: str = 'dark') -> str:
     div[class*="stButton"] button:hover:not(:disabled),
     div[data-testid*="stButton"] button:hover:not(:disabled),
     [role="button"]:hover:not(a):not(div):not(span):not(:disabled) {{
-        background: linear-gradient(90deg, var(--tauc-primary-hover) 0%, var(--tauc-accent) 100%) !important;
-        box-shadow: 0 6px 16px -6px var(--tauc-primary) !important;
-        transform: translateY(-1px) !important;
-        border-color: var(--tauc-primary) !important;
+        opacity: 0.9 !important;
         color: #0f172a !important;
     }}
 
@@ -506,7 +503,7 @@ def get_theme_css(theme: str = 'dark') -> str:
     .stButton button:hover:not(:disabled) *,
     button[data-testid*="Button"]:hover:not(:disabled) *,
     .stForm button:hover:not(:disabled) * {{
-        color: inherit !important;
+        color: #0f172a !important;
     }}
 
     /* DISABLED states - ALL buttons - ULTRA-SPECIFIC */
@@ -556,13 +553,13 @@ def get_theme_css(theme: str = 'dark') -> str:
         opacity: 0.6 !important;
     }}
 
-    /* ABSOLUTE FINAL CATCH-ALL - Force ALL button children to inherit button color */
+    /* ABSOLUTE FINAL CATCH-ALL - Force ALL button children to use black color */
     :is(button, [role="button"]):is(:not([aria-hidden="true"])):is(:not([tabindex="-1"])) * {{
-        color: inherit !important;
+        color: #0f172a !important;
     }}
 
     :is(button, [role="button"]):is(:not([aria-hidden="true"])):is(:not([tabindex="-1"])):hover:not(:disabled) * {{
-        color: inherit !important;
+        color: #0f172a !important;
     }}
 
     /* ULTRA-NUCLEAR STREAMLIT-SPECIFIC BUTTON TEXT */
@@ -574,8 +571,8 @@ def get_theme_css(theme: str = 'dark') -> str:
     button[data-testid*="FormSubmit"] > div *,
     button[kind] > div,
     button[kind] > div * {{
-        color: inherit !important;
-        fill: inherit !important;
+        color: #0f172a !important;
+        fill: #0f172a !important;
     }}
 
     div[data-testid="stDownloadButton"] > button {{
