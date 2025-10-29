@@ -231,25 +231,80 @@ def show_configuration_page():
     with col2:
         st.markdown("<br>", unsafe_allow_html=True)
 
-    # Certificate paths
+    # Certificate paths - File upload or path input
+    st.markdown("### 🔐 TLS Certificates")
+
+    # Option to use file upload or path
+    cert_input_method = st.radio(
+        "Certificate input method:",
+        ["Use file path", "Upload files"],
+        horizontal=True,
+        help="Choose whether to specify file paths or upload certificate files directly"
+    )
+
     default_cert = str(Path(__file__).parent.parent / "certs" / "client.crt")
     default_key = str(Path(__file__).parent.parent / "certs" / "client.key")
 
-    col1, col2 = st.columns(2)
+    if cert_input_method == "Use file path":
+        col1, col2 = st.columns(2)
 
-    with col1:
-        cert_path = st.text_input(
-            "📜 Client Certificate Path",
-            value=default_cert,
-            help="Absolute path to client.crt file"
-        )
+        with col1:
+            cert_path = st.text_input(
+                "📜 Client Certificate Path",
+                value=default_cert,
+                help="Absolute path to client.crt file"
+            )
 
-    with col2:
-        key_path = st.text_input(
-            "🔑 Client Key Path",
-            value=default_key,
-            help="Absolute path to client.key file"
-        )
+        with col2:
+            key_path = st.text_input(
+                "🔑 Client Key Path",
+                value=default_key,
+                help="Absolute path to client.key file"
+            )
+    else:
+        # File upload mode
+        col1, col2 = st.columns(2)
+
+        with col1:
+            cert_file = st.file_uploader(
+                "📜 Upload Client Certificate (.crt)",
+                type=['crt', 'pem', 'cert'],
+                help="Upload your client.crt file"
+            )
+
+        with col2:
+            key_file = st.file_uploader(
+                "🔑 Upload Client Key (.key)",
+                type=['key', 'pem'],
+                help="Upload your client.key file"
+            )
+
+        # Save uploaded files temporarily
+        if cert_file and key_file:
+            import tempfile
+
+            # Create temp directory if it doesn't exist
+            temp_dir = Path(tempfile.gettempdir()) / "tauc_certs"
+            temp_dir.mkdir(exist_ok=True)
+
+            # Save certificate file
+            cert_path = str(temp_dir / "client.crt")
+            with open(cert_path, "wb") as f:
+                f.write(cert_file.getbuffer())
+
+            # Save key file
+            key_path = str(temp_dir / "client.key")
+            with open(key_path, "wb") as f:
+                f.write(key_file.getbuffer())
+
+            st.success(f"✓ Files uploaded successfully to {temp_dir}")
+        elif cert_file or key_file:
+            st.warning("⚠️ Please upload both certificate and key files")
+            cert_path = None
+            key_path = None
+        else:
+            cert_path = None
+            key_path = None
 
     st.markdown("<div class='tauc-divider'></div>", unsafe_allow_html=True)
 
@@ -273,8 +328,13 @@ def show_configuration_page():
         st.markdown("<br>", unsafe_allow_html=True)
 
         if st.button("Authenticate with OAuth 2.0", type="primary", use_container_width=False):
-            if not all([client_id, client_secret, domain_name, cert_path, key_path]):
-                st.error("All fields are required!")
+            if not all([client_id, client_secret, domain_name]):
+                st.error("⚠️ Client ID, Client Secret, and Domain are required!")
+            elif not cert_path or not key_path:
+                if cert_input_method == "Upload files":
+                    st.error("⚠️ Please upload both certificate and key files!")
+                else:
+                    st.error("⚠️ Please provide valid certificate and key file paths!")
             else:
                 authenticate_oauth(client_id, client_secret, domain_name, cert_path, key_path)
 
@@ -297,8 +357,13 @@ def show_configuration_page():
         st.markdown("<br>", unsafe_allow_html=True)
 
         if st.button("Authenticate with AK/SK", type="primary", use_container_width=False):
-            if not all([access_key, secret_key, domain_name, cert_path, key_path]):
-                st.error("All fields are required!")
+            if not all([access_key, secret_key, domain_name]):
+                st.error("⚠️ Access Key, Secret Key, and Domain are required!")
+            elif not cert_path or not key_path:
+                if cert_input_method == "Upload files":
+                    st.error("⚠️ Please upload both certificate and key files!")
+                else:
+                    st.error("⚠️ Please provide valid certificate and key file paths!")
             else:
                 authenticate_aksk(access_key, secret_key, domain_name, cert_path, key_path)
 

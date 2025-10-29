@@ -13,6 +13,7 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 
 ### 🔑 Authentication
 - **Dual Authentication Support**: OAuth 2.0 and Access Key/Secret Key (AK/SK)
+- **Flexible Certificate Input**: Choose between file path entry or direct file upload
 - **Secure Session Management**: Credentials stored only in session state
 - **Easy Configuration**: Simple web form for credential input
 
@@ -110,7 +111,9 @@ A web-based user interface for managing TP-Link network devices through the TAUC
 2. **Configure Authentication**:
    - Select authentication method (OAuth 2.0 or AK/SK)
    - Enter your credentials
-   - Specify certificate paths (defaults to `../certs/`)
+   - **Certificate Options:**
+     - **Use file path**: Enter the path to your certificate files (defaults to `../certs/`)
+     - **Upload files**: Browse and upload your certificate and key files directly
    - Click "Authenticate"
 
 3. **Start Managing Devices**:
