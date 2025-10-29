@@ -431,7 +431,7 @@ def get_theme_css(theme: str = 'dark') -> str:
         border-radius: 14px !important;
         border: 1px solid transparent !important;
         background: linear-gradient(90deg, var(--tauc-primary) 0%, var(--tauc-accent) 100%) !important;
-        color: var(--tauc-button-text) !important;
+        color: #0f172a !important;
         font-weight: 600 !important;
         padding: 0.55rem 1.6rem !important;
         transition: all 0.2s ease !important;
@@ -495,7 +495,7 @@ def get_theme_css(theme: str = 'dark') -> str:
         box-shadow: 0 6px 16px -6px var(--tauc-primary) !important;
         transform: translateY(-1px) !important;
         border-color: var(--tauc-primary) !important;
-        color: var(--tauc-button-text) !important;
+        color: #0f172a !important;
     }}
 
     /* Force ALL button text content to inherit color on HOVER too */
@@ -543,7 +543,7 @@ def get_theme_css(theme: str = 'dark') -> str:
     /* FINAL NUCLEAR CATCH-ALL - Maximum specificity */
     :is(button, [role="button"]):is(:not([aria-hidden="true"])):is(:not([tabindex="-1"])) {{
         background: linear-gradient(90deg, var(--tauc-primary) 0%, var(--tauc-accent) 100%) !important;
-        color: var(--tauc-button-text) !important;
+        color: #0f172a !important;
         border-radius: 14px !important;
         border: 1px solid transparent !important;
         font-weight: 500 !important;
