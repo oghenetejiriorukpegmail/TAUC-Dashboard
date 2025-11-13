@@ -181,7 +181,9 @@ class RequestUtils:
                     body_dict[field.name] = value
 
             if body_dict:
-                return json.dumps(body_dict, default=RequestUtils._json_serializer)
+                # Convert snake_case keys to camelCase before JSON serialization
+                camel_case_body = RequestUtils._to_camel_case_dict(body_dict)
+                return json.dumps(camel_case_body, default=RequestUtils._json_serializer)
 
             return None
 
@@ -217,11 +219,43 @@ class RequestUtils:
         return None
 
     @staticmethod
+    def _to_camel_case_dict(snake_dict: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert dictionary with snake_case keys to camelCase keys, filtering out None values."""
+        camel_dict = {}
+        for key, value in snake_dict.items():
+            # Skip None values - Java SDK doesn't send null fields
+            if value is None:
+                continue
+
+            # Convert key to camelCase
+            camel_key = RequestUtils._to_camel_case(key)
+
+            # Recursively convert nested dictionaries
+            if isinstance(value, dict):
+                converted = RequestUtils._to_camel_case_dict(value)
+                # Only add if non-empty after filtering
+                if converted:
+                    camel_dict[camel_key] = converted
+            elif isinstance(value, list):
+                camel_dict[camel_key] = [
+                    RequestUtils._to_camel_case_dict(item) if isinstance(item, dict) else item
+                    for item in value
+                ]
+            else:
+                camel_dict[camel_key] = value
+
+        return camel_dict
+
+    @staticmethod
     def _json_serializer(obj: Any) -> Any:
-        """Custom JSON serializer for complex objects."""
+        """Custom JSON serializer for complex objects - converts snake_case to camelCase."""
         if is_dataclass(obj):
-            return {field.name: getattr(obj, field.name) for field in fields(obj)}
+            # Convert dataclass to dict with snake_case keys
+            snake_dict = {field.name: getattr(obj, field.name) for field in fields(obj)}
+            # Convert to camelCase keys to match Java SDK
+            return RequestUtils._to_camel_case_dict(snake_dict)
         elif hasattr(obj, '__dict__'):
-            return obj.__dict__
+            # Convert object dict to camelCase
+            return RequestUtils._to_camel_case_dict(obj.__dict__)
         else:
             return str(obj)
